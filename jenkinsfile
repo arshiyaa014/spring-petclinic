@@ -3,12 +3,13 @@ pipeline{
     tools{
         maven 'maven3'
     }
-    stages('Build'){
-        steps{
-            sh script: 'mvn clean package'
-        }
-    }
-    stage('Deploy jar to nexus'){
+    stages{
+       stage('Build'){
+            steps{
+                sh script: 'mvn clean package'
+            }
+       }
+       stage('Deploy jar to nexus'){
            steps{
                nexusArtifactUploader artifacts: [
                   [
@@ -25,5 +26,6 @@ pipeline{
                repository: 'http://52.255.145.250:8081/repository/maven-snapshots/',
                version: '2.5.0-SNAPSHOT'
            }
+       }
     }
 }
