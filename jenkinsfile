@@ -9,20 +9,8 @@ pipeline{
        }
        stage('Deploy jar to nexus'){
            steps{
-               nexusArtifactUploader artifacts: [
-                  [
-                    artifactId: 'spring-petclinic',
-                    classifier: '', file: 'target/spring-petclinic-2.5.0-SNAPSHOT.jar',
-                    type: 'jar'
-                  ]
-               ],
-               credentialsId: 'nexus3',
-               groupId: 'org.springframework.samples',
-               nexusUrl: '52.255.145.250:8081',
-               nexusVersion: 'nexus3',
-               protocol: 'https',
-               repository: 'https://52.255.145.250:8081/repository/maven-snapshots/',
-               version: '2.5.0-SNAPSHOT'
+               sh script: '/opt/jenkins/maven/bin/mvn deploy:deploy-file -DgroupId=org.springframework.samples -DartifactId=spring-petclinic -Dversion=1.0.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=nexus -Durl=http://52.255.145.250:8081/repository/maven-snapshots/ -Dfile=target/spring-petclinic-2.5.0-SNAPSHOT.jar'
+                  
            }
        }
     }
