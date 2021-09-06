@@ -1,3 +1,4 @@
+<!--
 <?xml version="1.0"?>
 <!DOCTYPE module PUBLIC
 		"-//Puppy Crawl//DTD Check Configuration 1.2//EN"
@@ -5,3 +6,4 @@
 <module name="com.puppycrawl.tools.checkstyle.Checker">
 	<module name="io.spring.nohttp.checkstyle.check.NoHttpCheck"/>
 </module>
+-->
