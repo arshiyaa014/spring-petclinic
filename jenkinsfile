@@ -20,8 +20,8 @@ pipeline{
                groupId: 'org.springframework.samples',
                nexusUrl: ' 52.255.145.250',
                nexusVersion: 'nexus3',
-               protocol: 'http',
-               repository: 'http://52.255.145.250:8081/repository/maven-snapshots/',
+               protocol: 'https',
+               repository: 'https://52.255.145.250:8081/repository/maven-snapshots/',
                version: '2.5.0-SNAPSHOT'
            }
        }
