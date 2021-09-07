@@ -18,7 +18,7 @@ pipeline{
                ],
                credentialsId: 'nexus3',
                groupId: 'org.springframework.samples',
-               nexusUrl: '52.255.145.250:8081',
+               nexusUrl: '52.170.67.114:8081',
                nexusVersion: 'nexus3',
                protocol: 'http',
                repository: 'maven-snapshots',
