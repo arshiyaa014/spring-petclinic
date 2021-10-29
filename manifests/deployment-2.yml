@@ -17,6 +17,6 @@ spec:
           image: "productzero.azurecr.io/productzero"
           ports:
           - containerPort: 80
-          readinessProbe:
-          initialDelaySeconds: 1200
-          timeoutSeconds: 1200
+    readinessProbe:
+      initialDelaySeconds: 1200
+      timeoutSeconds: 1200
