@@ -16,8 +16,6 @@ env:
   REGISTRY_NAME: productzero
   CLUSTER_NAME: product-zero
   CLUSTER_RESOURCE_GROUP: Product_Zero_DevOps
-  REGISTRY_USERNAME: productzero
-  REGISTRY_PASSWORD: Fde5qRdoZ07ndfA8DuTeMz/MCzLFVO/k
   NAMESPACE: default
   
 jobs:
@@ -31,8 +29,8 @@ jobs:
     - uses: azure/docker-login@v1
       with:
         login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
-        username: ${{ env.REGISTRY_USERNAME }} 
-        password: ${{ env.REGISTRY_PASSWORD }}
+        username: ${{ secrets.REGISTRY_USERNAME }} 
+        password: ${{ secrets.REGISTRY_PASSWORD }}
     
     # Container build and push to a Azure Container registry (ACR)
     - run: |
@@ -54,8 +52,8 @@ jobs:
     - uses: azure/k8s-create-secret@v1
       with:
         container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
-        container-registry-username: ${{ env.REGISTRY_USERNAME }}
-        container-registry-password: ${{ env.REGISTRY_PASSWORD }}
+        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
         secret-name: ${{ env.REGISTRY_NAME }}-registry-connection
         namespace: ${{ env.NAMESPACE }}
     
