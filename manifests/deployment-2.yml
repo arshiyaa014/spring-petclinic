@@ -18,9 +18,5 @@ spec:
           ports:
           - containerPort: 80
           readinessProbe:
-          exec:
-            command:
-            - 'true'
-          periodSeconds: 1200
           initialDelaySeconds: 1200
           timeoutSeconds: 1200
