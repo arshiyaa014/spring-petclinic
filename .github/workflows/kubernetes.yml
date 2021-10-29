@@ -30,7 +30,7 @@ jobs:
       with:
         login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
         username: productzero 
-        password: ${{ secrets.REGISTRY_PASSWORD }}
+        password: Fde5qRdoZ07ndfA8DuTeMz/MCzLFVO/k
     
     # Container build and push to a Azure Container registry (ACR)
     - run: |
