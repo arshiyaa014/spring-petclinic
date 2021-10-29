@@ -6,7 +6,6 @@ env:
   CLUSTER_NAME: product-zero
   CLUSTER_RESOURCE_GROUP: Product_Zero_DevOps
   NAMESPACE: default
-  SECRET: ${{ env.SECRET }}
   APP_NAME: productzero
   
 jobs:
