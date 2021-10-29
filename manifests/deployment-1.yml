@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "servicedeliveryproductzero-a3fc"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "servicedeliveryproductzero-a3fc"
+  template:
+    metadata:
+      labels:
+        app: "servicedeliveryproductzero-a3fc"
+    spec:
+      containers:
+        - name: "servicedeliveryproductzero-a3fc"
+          image: "productzero.azurecr.io/servicedeliveryproductzero"
+          ports:
+          - containerPort: 80
