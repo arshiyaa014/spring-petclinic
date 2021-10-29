@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "productzero-584c"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "productzero-584c"
+  template:
+    metadata:
+      labels:
+        app: "productzero-584c"
+    spec:
+      containers:
+        - name: "productzero-584c"
+          image: "productzero.azurecr.io/productzero"
+          ports:
+          - containerPort: 80
