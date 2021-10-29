@@ -1,0 +1,50 @@
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    
+    - uses: azure/docker-login@v1
+      with:
+        login-server: productzero.azurecr.io
+        username: ${{ secrets.acr_productzero_username }}
+        password: ${{ secrets.acr_productzero_password }}
+    
+    - name: Build and push image to ACR
+      id: build-image
+      run: |
+        docker build "$GITHUB_WORKSPACE/" -f  "dockerfile" -t productzero.azurecr.io/servicedeliveryproductzero:${{ github.sha }} --label dockerfile-path=dockerfile
+        docker push productzero.azurecr.io/servicedeliveryproductzero:${{ github.sha }}
+    
+    - uses: azure/k8s-set-context@v1
+      with:
+         kubeconfig: ${{ secrets.aks_servicedeliveryproductzero_kubeConfig }}
+      id: login
+    
+    - name: Create namespace
+      run: |
+        namespacePresent=`kubectl get namespace | grep servicedeliveryproductzeroae19 | wc -l`
+        if [ $namespacePresent -eq 0 ]
+        then
+            echo `kubectl create namespace servicedeliveryproductzeroae19`
+        fi
+
+    - uses: azure/k8s-create-secret@v1
+      with:
+        namespace: servicedeliveryproductzeroae19
+        container-registry-url: productzero.azurecr.io
+        container-registry-username: ${{ secrets.acr_productzero_username }}
+        container-registry-password: ${{ secrets.acr_productzero_password }}
+        secret-name: servicedelivdockerauth
+       
+    - uses: azure/k8s-deploy@v1.2
+      with:
+        namespace: servicedeliveryproductzeroae19
+        manifests: |
+          manifests/deployment-1.yml
+          manifests/service-1.yml
+        images: |
+          productzero.azurecr.io/servicedeliveryproductzero:${{ github.sha }}
+        imagepullsecrets: |
+          servicedelivdockerauth
