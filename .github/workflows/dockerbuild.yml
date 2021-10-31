@@ -2,36 +2,6 @@ on:
   push:
     branches:
       - main
-
-jobs:
-  hello_world_job:
-    runs-on: ubuntu-latest
-    name: A job to build and push docker
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
-
-      - name: Build with Maven
-        run: mvn clean package -Dmaven.test.skip=true
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Login to JFrog 🐸 art  
-        uses: docker/login-action@v1
-        with:
-          registry: demoproductzero.jfrog.io
-          username: ${{ secrets.JFROG_USER_WRITER }}
-          password: ${{ secrets.JFROG_PASSWORD_WRITER }}on:
-  push:
-    branches:
-      - main
-
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
