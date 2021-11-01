@@ -29,11 +29,11 @@ jobs:
           password: ${{ secrets.JFROG_PASSWORD_WRITER }}
           
      
-      - uses: mr-smithers-excellent/docker-build-push@v5
+      - uses: Springboot-app/docker-build-push@v5
         name: Build & push Docker image
         with:
-          image: docker-local/image
-          tags: v1, latest
+          image: docker-local/Springboot
+          tags: Springboota-app/app:latest
           registry: demoproductzero.jfrog.io
           dockerfile: Dockerfile
           username: ${{ secrets.JFROG_USER_WRITER }}
