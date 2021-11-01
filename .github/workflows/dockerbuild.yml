@@ -29,9 +29,4 @@ jobs:
           password: ${{ secrets.JFROG_PASSWORD_WRITER }}
           
          
-      - name: Build & push Docker image
-        with:
-          image: repo/image
-          tags: v1, latest
-          registry: demoproductzero.jfrog.io
-          dockerfile: Dockerfile
+      
