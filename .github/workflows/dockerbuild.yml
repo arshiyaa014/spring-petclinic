@@ -27,22 +27,21 @@ jobs:
           registry: demoproductzero.jfrog.io
           username: ${{ secrets.JFROG_USER_WRITER }}
           password: ${{ secrets.JFROG_PASSWORD_WRITER }}
-    pipelines:
-      - name: pipeline_dbp
-        steps:
-        - name: docker_build
-          type: DockerBuild
-          configuration:
-            affinityGroup: dbp_group
-            dockerFileLocation: .
-            dockerFileName: Dockerfile
-            dockerImageName: demoproductzero.jfrog.io/docker-local/Springboot/Springboot_dbp  
-            dockerImageTag: ${run_number}
-            inputResources:
-             - name: dbp_repo 
-            integrations:
-             - name: Artifactory                            
-
+          
+    
+      - name: docker_build
+        type: DockerBuild
+        configuration:
+          affinityGroup: dbp_group
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: kaloula.jfrog-pipelines.com/docker-local/dbp  # replace with your image path and name
+          dockerImageTag: ${run_number}
+          inputResources:
+            - name: dbp_repo
+          integrations:
+            - name: art                            # <-- replace with your artifactory integration
+            
       - name: docker_push
         type: DockerPush
         configuration:
@@ -62,3 +61,14 @@ jobs:
             - name: docker_push
           outputResources:
             - name: dbp_build_info
+
+      - name: promote_dbp_build
+        type: PromoteBuild
+        configuration:
+          targetRepository: demo-pipelines
+          integrations:
+            - name: art
+          inputResources:
+            - name: dbp_build_info
+          outputResources:
+            - name: dbp_promoted_build_info
