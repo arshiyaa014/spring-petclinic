@@ -33,7 +33,7 @@ jobs:
         name: Build & push Docker image
         with:
           image: docker-local/Springboot
-          tags: Springboota-app/app:latest
+          tags: v1, latest
           registry: demoproductzero.jfrog.io
           dockerfile: Dockerfile
           username: ${{ secrets.JFROG_USER_WRITER }}
