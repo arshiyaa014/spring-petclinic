@@ -29,11 +29,9 @@ jobs:
           password: ${{ secrets.JFROG_PASSWORD_WRITER }}
           
          
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
+      - name: Build & push Docker image
         with:
-          push: true
-          tags: user/app:latest
-          secrets: |
-            GIT_AUTH_TOKEN=${{ secrets.MYTOKEN }}
+          image: repo/image
+          tags: v1, latest
+          registry: demoproductzero.jfrog.io
+          dockerfile: Dockerfile.ci
