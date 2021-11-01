@@ -39,4 +39,3 @@ jobs:
           username: ${{ secrets.JFROG_USER_WRITER }}
           password: ${{ secrets.JFROG_PASSWORD_WRITER }} 
          
-      
