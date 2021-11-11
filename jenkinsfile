@@ -1,0 +1,29 @@
+pipeline{
+    agent any
+     
+    stages{
+       stage('Build'){
+            steps{
+                sh script: '/opt/jenkins/maven/bin/mvn clean package'
+            }
+       }
+       stage('Deploy jar to nexus'){
+           steps{
+               nexusArtifactUploader artifacts: [
+                  [
+                    artifactId: 'spring-petclinic',
+                    classifier: '', file: 'target/spring-petclinic-2.5.0-SNAPSHOT.jar',
+                    type: 'jar'
+                  ]
+               ],
+               credentialsId: 'nexus3',
+               groupId: 'org.springframework.samples',
+               nexusUrl: '52.170.67.114:8081',
+               nexusVersion: 'nexus3',
+               protocol: 'http',
+               repository: 'maven-snapshots',
+               version: '2.5.0-SNAPSHOT'
+           }
+       }
+    }
+}
